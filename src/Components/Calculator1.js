@@ -6,12 +6,15 @@ import { evaluate } from 'mathjs';
 
 function Calculator1() {
   const [values, setValues] = useState([]);
-
+  const [result, setResult] = useState(0)
 
 const handleClick = (event) => {
-  const newValue = event.target.getAttribute('value') || event.target.innerText;
-  setValues((prevState) => [...prevState, newValue])
-// alert(values)
+  if(values === result) {
+    setValues([])
+  }else{
+    const newValue = event.target.getAttribute('value') || event.target.innerText;
+    setValues((prevState) => [...prevState, newValue])
+  }
 }
 
 const handleSquared =() => {
@@ -30,17 +33,20 @@ const handleSquared =() => {
 
 const handleClear = () => {
   setValues([]);
+  setResult(0);
 }
 
 const handleDelete = () => {
   setValues(prevState => prevState.slice(0, -1))
 }
 
+
+
 const handleEvaluate = () => {
-  const expression = `${values.join('')}`
+  const expression = `${result} + ${values.join('')}`
   try {
-    const result = evaluate(expression).toString()
-    setValues([result])
+    setResult(evaluate(expression).toString())
+    setValues([])
   } catch (error) {
     alert('Invalid Expression')
     setValues([])
@@ -50,6 +56,9 @@ const handleEvaluate = () => {
   return (
     <div className='calculator'>
     <div className='container'>
+        <div className='container display' >
+            <input type='text'className='display' value={result} />
+        </div>
         <div className='container display' >
             <input type='text'className='display' value={values.join('')} />
         </div>
