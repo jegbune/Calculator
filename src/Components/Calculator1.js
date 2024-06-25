@@ -44,7 +44,7 @@ const handleDelete = () => {
 
 
 const handleEvaluate = () => {
-  const expression = `${result} + ${values.join('')}`
+  const expression = values.join('');
   try {
     setResult(evaluate(expression).toString())
     setValues([])
