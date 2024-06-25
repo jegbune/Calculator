@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Calculator.css'
+// import './Calculator.css'
 class Calculator extends Component {
   constructor(props) {
     super(props)
@@ -26,11 +26,22 @@ clearValue= (event)=> {
   })
 }
 
-result = (event) => {
-  this.setState(prevState=> ({
-    value: eval(prevState.value)
-  }))
+result = () => {
+  try {
+    this.setState(prevState => ({
+      value: String(eval(prevState.value.replace(/[^-()\d/*+.]/, '')))
+    }))
+  } catch (e) {
+    this.setState({
+      value: 'Error'
+    })
+  }
 }
+// result = (event) => {
+//   this.setState(prevState=> ({
+//     value: eval(prevState.value)
+//   }))
+// }
 
   render() {
     const { value } = this.state
