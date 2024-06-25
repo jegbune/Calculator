@@ -18,12 +18,13 @@ const handleClick = (event) => {
 }
 
 const handleSquared =() => {
-  let expression = values.join('')
+  let expression = values.join('') || result
   
   try{
     const result = evaluate(expression);
     const squaredResult = evaluate(`${result} ^2`).toString();
-    setValues([squaredResult])
+    setResult(squaredResult)
+    setValues([])
   }
   catch (error) {
     alert('Invalid Expression')
